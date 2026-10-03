@@ -1,0 +1,115 @@
+/* ============================================================
+   8) الأقسام
+   ============================================================ */
+.sec {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--sec-pad) 22px;
+  text-align: center;
+}
+.sec.alt { background: var(--bg-alt); }
+.sec h2 {
+  font-size: clamp(24px, 4.6vw, 38px);
+  color: var(--heading);
+  margin: 0 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.sec h3 { font-size: clamp(20px, 3.6vw, 27px); color: var(--heading); margin: 0 0 14px; }
+.lead {
+  max-width: min(62ch, 100%);
+  margin: 0 auto 30px;
+  color: var(--text-soft);
+  font-size: clamp(16.5px, 2.4vw, 20px);
+  line-height: 2.05;
+}
+.sub-lead { max-width: min(60ch, 100%); margin: 0 auto 24px; color: var(--text-soft); font-size: 16px; }
+.center { text-align: center; }
+.mt-lg { margin-top: clamp(40px, 6vw, 64px); }
+.mt-md { margin-top: 28px; }
+.gold-text { color: var(--gold); font-weight: 700; }
+.tiny { font-size: 13.5px; color: var(--text-soft); opacity: 0.9; }
+.stack { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+.ornament { display: block; margin: 0 auto 18px; width: min(170px, 60%); height: 20px; }
+.ornament path, .ornament line { vector-effect: non-scaling-stroke; }
+
+/* ============================================================
+   9) البطاقات
+   ============================================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  box-shadow: var(--shadow);
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 18px;
+  text-align: start;
+}
+
+.dua-card { display: flex; flex-direction: column; gap: 4px; }
+.dua-title { font-size: 20px; color: var(--heading); margin: 0 0 4px; }
+.dua-text { font-size: 19px; line-height: 2.1; margin: 0; color: var(--text); }
+.dua-source { font-size: 13px; color: var(--text-soft); opacity: 0.8; }
+.card-actions { display: flex; gap: 9px; margin-top: auto; padding-top: 14px; flex-wrap: wrap; }
+
+.surah-card {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.10), transparent 65%),
+    var(--surface);
+}
+.surah-card h3 { font-size: 28px; color: var(--heading); }
+.surah-card .meta { color: var(--text-soft); margin: 4px 0 18px; font-size: 15px; }
+
+.quran-card { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.quran-card h3 { font-size: 20px; color: var(--heading); }
+.quran-num {
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1.4px solid var(--gold);
+  color: var(--gold);
+  font-weight: 800; font-size: 15px;
+  margin-bottom: 4px;
+}
+.quran-meta { font-size: 13px; color: var(--text-soft); margin: 0 0 8px; }
+
+.deed-card { text-align: center; text-decoration: none; color: inherit; }
+.deed-card h3 { font-size: 19px; color: var(--heading); margin: 8px 0 4px; }
+.deed-card p { font-size: 15px; color: var(--text-soft); margin: 0; }
+.deed-icon {
+  display: inline-grid; place-items: center;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.12);
+  color: var(--gold);
+  transition: background var(--t-fast) ease;
+}
+.deed-card:hover .deed-icon { background: rgba(201, 162, 39, 0.2); }
+
+.sayyid { max-width: 720px; margin-inline: auto; text-align: center; }
+.sayyid h3 { display: flex; align-items: center; justify-content: center; gap: 9px; }
+.sayyid .quran-text {
+  font-family: var(--font-quran);
+  font-size: clamp(19px, 3vw, 22px);
+  line-height: 2.35;
+  color: var(--text);
+  margin: 12px 0 6px;
+}
+
+.rnd-card { margin: 18px auto 0; max-width: 580px; opacity: 0; transform: translateY(10px); }
+.rnd-card.in { animation: fadeUp 0.9s var(--ease) forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: none; } }

@@ -1,0 +1,44 @@
+MIT License
+
+Copyright (c) 2026 Sadaqah Jariyah Template contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---------------------------------------------------------------------------
+SCOPE NOTICE — PLEASE READ
+---------------------------------------------------------------------------
+The MIT License above covers ONLY the source code of this template
+(HTML, CSS, JavaScript, build tools, documentation).
+
+It does NOT grant any rights over third-party content or assets, which
+have their own separate licenses and terms of use. See the
+"Third-party assets" section of README.md for details, including:
+
+  - The Quranic text (fetched at runtime from Quran.com Foundation /
+    AlQuran Cloud APIs). Copyright of the Quranic text is not waived.
+  - Audio recordings of Surah Yaseen (NOT included in this repository —
+    you must supply your own, from a source whose license permits it).
+  - The Cairo and Amiri Quran fonts (SIL Open Font License 1.1).
+  - The qrcodejs library used for QR generation (MIT).
+  - The favicon / PWA icons / OG image included in assets/icons/.
+  - Any content the template user adds to their own deployment.
+
+You are responsible for verifying that the assets you publish are properly
+licensed. Do not assume MIT covers them.
+---------------------------------------------------------------------------

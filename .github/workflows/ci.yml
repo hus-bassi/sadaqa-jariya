@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # لا يوجد npm install — المشروع بلا اعتمادات
+
+      - name: Build (CSS + HTML + config tokens)
+        run: npm run build
+
+      - name: Structure check
+        run: npm run check
+
+      - name: Static verification
+        run: npm run verify
+
+      - name: Audio gating test
+        run: npm run audio-test
+
+      - name: Counters test
+        run: npm run counters
+
+      - name: Smoke test
+        run: npm run smoke
+
+      - name: Verify build output is up to date
+        run: |
+          # يكتشف نسيان تشغيل npm run build قبل الـ PR
+          if ! git diff --quiet -- index.html assets/css/main.css; then
+            echo "::error::index.html أو main.css غير محدّث. شغّل npm run build وأعد الالتزام."
+            git --no-pager diff --stat -- index.html assets/css/main.css
+            exit 1
+          fi
+
+  security-audit:
+    name: No secrets committed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure local env files are not tracked
+        run: |
+          if git ls-files --error-unmatch assets/js/env.local.js 2>/dev/null; then
+            echo "::error::assets/js/env.local.js يجب ألا يكون في Git (استخدم .env.example)"
+            exit 1
+          fi
+
+      - name: Detect common secret patterns
+        run: |
+          PATTERNS='(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{50,}|sk-[A-Za-z0-9]{32,}|AIza[0-9A-Za-z_-]{35}|-----BEGIN [A-Z ]*PRIVATE KEY-----)'
+          # نستثني التوثيق وملف هذا الـ workflow نفسه (يحتوي النمط أعلاه)
+          if git grep -nEI "$PATTERNS" -- . ':!*.md' ':!.github/workflows/*'; then
+            echo "::error::يبدو أن هناك أسرارًا (secrets) في الكود"
+            exit 1
+          fi
+          echo "no secrets found"

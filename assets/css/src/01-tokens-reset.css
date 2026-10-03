@@ -1,0 +1,205 @@
+/* ============================================================
+   1) الرموز التصميمية (Design Tokens)
+   ============================================================ */
+:root {
+  /* ==========================================================
+     Palette — Dark Islamic (الوضع الداكن هو الوحيد، لا Light Mode)
+     ========================================================== */
+  --bg-primary: #061C16;
+  --bg-secondary: #0B3D2E;
+  --bg-card: #0E4A38;
+
+  --green-dark: var(--bg-secondary);
+  --green: #145A42;
+  --green-light: #1B6B50;
+
+  --gold: #C9A227;
+  --gold-soft: #D8BE63;
+  --gold-ink: #D8BE63;
+
+  --text-primary: #F8F5EA;
+  --text-secondary: #C7D8D0;
+
+  --ivory: var(--text-primary); /* يُستخدم كلون نص فقط — لا كخلفية */
+  --white: #FFFFFF;
+  --night: var(--bg-primary);
+
+  --bg: var(--bg-primary);
+  --bg-alt: #0A2A20;
+  --surface: var(--bg-card);
+  --surface-2: #0F5643;
+  --text: var(--text-primary);
+  --text-soft: var(--text-secondary);
+  --heading: var(--gold-soft);
+  --line: rgba(201, 162, 39, 0.45);
+  --line-soft: rgba(216, 190, 99, 0.14);
+  --on-dark: var(--text-primary);
+  --on-dark-soft: #D7E3DC;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 28px rgba(216, 190, 99, 0.22);
+
+  /* رموز نافذة الدعاء — مشتقّة من الهوية نفسها
+     لا ألوان جديدة: كلها مراجع للألوان الأساسية أعلاه. */
+  --modal-bg: var(--bg-secondary);
+  --modal-fg: var(--text-primary);
+  --modal-line: rgba(216, 190, 99, 0.55);
+  --modal-scrim: rgba(0, 10, 7, 0.78);
+  --modal-blur: 10px;
+  --modal-shadow: 0 25px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(216, 190, 99, 0.10);
+  --modal-glow: 0 8px 24px rgba(216, 190, 99, 0.20);
+  --modal-veil: rgba(248, 245, 234, 0.07);
+  --modal-veil-line: rgba(248, 245, 234, 0.18);
+  --modal-tap-line: rgba(216, 190, 99, 0.38);
+  --modal-t-in: 0.38s;
+  --modal-t-out: 0.22s;
+  /* زخرفة هندسية إسلامية خفيفة داخل النافذة */
+  --modal-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 80 80'%3E%3Cpath d='M40 4l9 21 21-9-9 21 21 9-21 9 9 21-21-9-9 21-9-21-21 9 9-21-21-9 21-9-9-21 21 9z' fill='none' stroke='%23D8BE63' stroke-width='1' stroke-opacity='0.10'/%3E%3C/svg%3E");
+
+  --font-ui: 'Cairo', 'Tajawal', 'Segoe UI', system-ui, -apple-system, 'Noto Sans Arabic', sans-serif;
+  --font-quran: 'Amiri Quran', 'Amiri', 'Scheherazade New', 'Traditional Arabic', 'Cairo', serif;
+
+  --radius: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --sec-pad: clamp(60px, 9vw, 96px);
+  --container: 1040px;
+  --nav-h: 66px;
+
+  --t-fast: 0.4s;
+  --t: 0.7s;
+  --t-slow: 1.1s;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* ============================================================
+   2) إعادة الضبط
+   ============================================================ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--sat) + 12px);
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  padding-top: var(--sat);
+  padding-bottom: var(--sab);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.95;
+  overflow-x: clip;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--t) ease, color var(--t) ease;
+}
+
+body.no-scroll { overflow: hidden; }
+
+h1, h2, h3, h4 {
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+p { margin: 0 0 1em; }
+img, svg { max-width: 100%; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: var(--green); }
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--green-dark);
+  font-weight: 700;
+  border-radius: 0 0 12px 0;
+}
+.skip-link:focus { inset-inline-start: 0; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   3) شريط تقدم التمرير (#40)
+   ============================================================ */
+#prog {
+  position: fixed;
+  top: var(--sat);
+  inset-inline: 0 auto;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+  z-index: 60;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.1s linear;
+}
+
+/* ============================================================
+   4) الخلفية الزخرفية (#36)
+   ============================================================ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ambient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 4l9 21 21-9-9 21 21 9-21 9 9 21-21-9-9 21-9-21-21 9 9-21-21-9 21-9-9-21 21 9z' fill='none' stroke='%23C9A227' stroke-width='1.1'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+
+.ambient .dust {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, var(--gold-soft), transparent),
+    radial-gradient(1.5px 1.5px at 78% 12%, var(--gold-soft), transparent),
+    radial-gradient(2px 2px at 88% 64%, var(--gold-soft), transparent),
+    radial-gradient(1.5px 1.5px at 24% 80%, var(--gold-soft), transparent),
+    radial-gradient(1.5px 1.5px at 55% 48%, var(--white), transparent),
+    radial-gradient(2px 2px at 42% 92%, var(--gold-soft), transparent),
+    radial-gradient(1.5px 1.5px at 66% 32%, var(--gold-soft), transparent);
+  opacity: 0.35;
+  animation: dustDrift 22s ease-in-out infinite alternate;
+}
+@keyframes dustDrift {
+  to { opacity: 0.14; transform: translate3d(0, -14px, 0); }
+}

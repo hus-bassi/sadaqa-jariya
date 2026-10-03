@@ -1,0 +1,76 @@
+  <!-- ============ المشاركة (#33, #34) ============ -->
+  <section class="sec alt reveal" id="share" aria-labelledby="shareTitle">
+    <h2 id="shareTitle"><span class="h-ico" data-icon="share" data-icon-size="26"></span>شارك الأجر</h2>
+    <p class="lead">إذا أحببت، شارك هذا الموقع مع من تحب، لعل دعاءً أو استغفارًا يكون سببًا في الخير.</p>
+
+    <div class="stack">
+      <button class="btn gold" type="button" id="shareBtn">
+        <span data-icon="share" data-icon-size="18"></span><span>مشاركة</span>
+      </button>
+    </div>
+
+    <div class="stack mt-md" id="shareLinks" hidden>
+      <a class="mini share-link" id="wa" target="_blank" rel="noopener noreferrer">
+        <span data-icon="whatsapp" data-icon-size="16"></span><span>WhatsApp</span>
+      </a>
+      <a class="mini share-link" id="tg" target="_blank" rel="noopener noreferrer">
+        <span data-icon="telegram" data-icon-size="16"></span><span>Telegram</span>
+      </a>
+      <a class="mini share-link" id="fb" target="_blank" rel="noopener noreferrer">
+        <span data-icon="facebook" data-icon-size="16"></span><span>Facebook</span>
+      </a>
+      <button class="mini" type="button" data-copylink>
+        <span data-icon="link" data-icon-size="16"></span><span>نسخ الرابط</span>
+      </button>
+    </div>
+
+    <p class="mt-lg" style="color:var(--heading);font-weight:700">يمكنك الاحتفاظ بالرابط ومشاركته بسهولة</p>
+    <div class="qr-box" id="qr" role="img" aria-label="رمز الاستجابة السريعة لرابط الموقع"></div>
+    <div class="stack mt-md">
+      <button class="mini" type="button" data-copylink>
+        <span data-icon="link" data-icon-size="16"></span><span>نسخ الرابط</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ عن هذه الصدقة ============ -->
+  <section class="sec reveal" id="about" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle"><span class="h-ico" data-icon="heart" data-icon-size="26"></span>عن هذه الصدقة</h2>
+    <p class="lead" style="font-size:19px">{{dua.about}}</p>
+    <p class="lead gold-text" style="font-size:19px">{{dua.footer}}</p>
+
+    <button class="tap tap-count" type="button" data-k="aboutDua" aria-label="عدّاد الدعاء: اضغط للعدّ">
+      <span class="tap-hint">اضغط للعدّ</span>
+      <span class="counter-mini" data-count="aboutDua" aria-live="polite" aria-atomic="true">٠</span>
+    </button>
+    <p class="tiny mt-md" style="max-width:52ch;margin-inline:auto">
+      الموقع لا يجمع أي بيانات شخصية، ولا يطلب تسجيلًا أو بريدًا، وعدّادات الذكر تُحفظ على جهازك وحده.
+    </p>
+  </section>
+
+  <!-- ============ فاصل إسلامي قبل الفوتر ============ -->
+  <div class="footer-divider" aria-hidden="true">
+    <span></span>
+    <svg viewBox="0 0 40 40" width="34" height="34" fill="none" stroke="#C9A227" stroke-width="1.3">
+      <path d="M20 4l4.7 10.6L36 20l-11.3 5.4L20 36l-4.7-10.6L4 20l11.3-5.4z"/>
+      <circle cx="20" cy="20" r="2.6" fill="#C9A227" stroke="none"/>
+    </svg>
+    <span></span>
+  </div>
+
+  <!-- ============ الفوتر (#42) ============ -->
+  <footer>
+    <p class="footer-brand">{{site.shortName}}</p>
+    <p class="footer-tagline">
+      تم إنشاء هذا القالب ليكون صدقة جارية، ويمكن استخدامه لإنشاء صفحات دعاء وصدقة جارية على أرواح الأحبة.
+    </p>
+
+    <!-- شعارات التواصل — تُبنى من creator.social في site.config.js -->
+    <ul class="social-row" id="socialRow" aria-label="حسابات صاحب القالب"></ul>
+
+    <p class="footer-copy" id="footerCopy"></p>
+
+    <p class="footer-note">{{site.shortName}} {{deceased.greeting}}</p>
+    <p class="footer-template">Created by {{creator.name}} — {{creator.template}}</p>
+  </footer>
+</main>

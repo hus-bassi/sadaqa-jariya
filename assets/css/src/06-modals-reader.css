@@ -1,0 +1,301 @@
+/* ============================================================
+   13) النوافذ المنبثقة (#35, #19)
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: var(--modal-scrim);
+  -webkit-backdrop-filter: blur(var(--modal-blur));
+  backdrop-filter: blur(var(--modal-blur));
+}
+.modal.on { display: flex; animation: modalScrimIn var(--modal-t-in) ease-out; }
+.modal.closing { animation: modalScrimOut var(--modal-t-out) ease-in forwards; }
+@keyframes modalScrimIn { from { opacity: 0; } }
+@keyframes modalScrimOut { to { opacity: 0; } }
+
+.modal-box {
+  position: relative;
+  width: min(92vw, 560px);
+  max-height: 85vh;
+  max-height: 85dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 34px 30px calc(30px + var(--sab));
+  /* Warm Ivory + زخرفة هندسية إسلامية خفيفة خلف النص */
+  background-color: var(--modal-bg);
+  background-image: var(--modal-pattern);
+  background-size: 88px 88px;
+  color: var(--modal-fg);
+  border: 1px solid var(--modal-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--modal-shadow);
+  text-align: center;
+  animation: modalIn var(--modal-t-in) ease-out;
+}
+.modal.closing .modal-box { animation: modalOut var(--modal-t-out) ease-in forwards; }
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+}
+@keyframes modalOut {
+  to { opacity: 0; transform: scale(0.98); }
+}
+
+/* --- الترويسة: عنوان أخضر داكن + أيقونة ذهبية + زر إغلاق دائري --- */
+.modal-head {
+  position: relative;
+  padding-inline-start: 44px;
+  padding-inline-end: 44px;
+}
+.modal-box h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--modal-fg);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.modal-head .h-ico { color: var(--gold); }
+.modal-head .h-ico svg { width: 22px; height: 22px; }
+.modal-head::after {
+  content: '';
+  display: block;
+  width: 84px;
+  height: 2px;
+  margin: 12px auto 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.modal-x {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 0;
+  translate: 0 -50%;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--modal-veil-line);
+  background: var(--modal-veil);
+  color: var(--modal-fg);
+  transition: background var(--t-fast) ease, color var(--t-fast) ease,
+    border-color var(--t-fast) ease, transform var(--t-fast) var(--ease);
+}
+.modal-x:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold-soft);
+  color: var(--bg-primary);
+}
+.modal-x:active { transform: scale(0.94); }
+.modal-x svg { width: 16px; height: 16px; }
+
+/* --- نص الدعاء --- */
+.modal-dua {
+  font-size: 21px;
+  line-height: 2.05;
+  font-weight: 500;
+  color: var(--modal-fg);
+  margin: 14px auto 8px;
+}
+.modal-source {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 18px;
+}
+.modal-source:empty { display: none; }
+
+/* --- الأزرار داخل النافذة ---
+   نظام .btn العام يفترض خلفية داكنة (لون عاجي)، لذا نضبطه هنا صراحةً
+   حتى لا يختفي النص على خلفية النافذة العاجية. */
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.modal-box .btn {
+  color: var(--modal-fg);
+  background: transparent;
+  border-color: var(--gold);
+}
+.modal-box .btn:hover {
+  background: rgba(216, 190, 99, 0.14);
+  box-shadow: none;
+}
+.modal-box .btn:active { transform: scale(0.98); }
+.modal-box .btn.gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  color: var(--bg-primary);
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: var(--modal-glow);
+}
+.modal-box .btn.gold:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  box-shadow: 0 10px 28px rgba(216, 190, 99, 0.28);
+  filter: brightness(0.96);
+}
+
+/* ============================================================
+   14) قارئ القرآن (#26, #27, #28)
+   ============================================================ */
+.reader {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: none;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.reader.on { display: block; }
+
+.reader-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: calc(10px + var(--sat)) 14px 10px;
+  background: inherit;
+  border-bottom: 1px solid var(--line);
+}
+.reader-head .mini { color: inherit; }
+.reader-head .mini[aria-pressed='true'] {
+  background: rgba(201, 162, 39, 0.18);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.font-label { font-size: 13px; color: var(--text-soft); min-width: 30px; text-align: center; }
+
+#rbody {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 34px 24px calc(120px + var(--sab));
+  font-family: var(--font-quran);
+  font-size: 30px;
+  line-height: 2.5;
+  text-align: justify;
+  text-align-last: center;
+}
+.reader-title {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 26px;
+  color: var(--gold);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.reader-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  margin-bottom: 26px;
+  font-family: var(--font-ui);
+}
+.reader-hint { font-size: 13px; color: var(--text-soft); }
+
+.ayat { word-spacing: 0.08em; }
+.ayah {
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background var(--t-fast) ease;
+  padding: 2px 0;
+}
+.ayah:hover { background: rgba(201, 162, 39, 0.09); }
+.ayah.current { background: rgba(201, 162, 39, 0.16); }
+.ayah:focus-visible { background: rgba(201, 162, 39, 0.16); }
+
+.ayah-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55em;
+  height: 1.55em;
+  margin: 0 0.35em;
+  border: 1.4px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.10);
+  color: var(--gold);
+  font-family: var(--font-ui);
+  font-size: 0.48em;
+  font-weight: 700;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.reader-state { text-align: center; padding: 40px 0; font-family: var(--font-ui); }
+.reader-state-text { font-size: 18px; color: var(--text-soft); margin: 0 0 18px; }
+.reader .btn { color: var(--text-primary); }
+
+/* ============================================================
+   15) الزر العائم + Toast
+   ============================================================ */
+.fab {
+  position: fixed;
+  inset-inline-start: 14px;
+  bottom: calc(14px + var(--sab));
+  z-index: 54;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--gold);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 700;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) ease,
+    border-color var(--t-fast) ease;
+}
+.fab > span[data-icon] {
+  display: inline-grid;
+  place-items: center;
+  color: var(--gold-soft);
+}
+.fab:hover {
+  border-color: var(--gold-soft);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 22px rgba(201, 162, 39, 0.28);
+}
+.fab:active { transform: scale(0.97); }
+/* لا يغطي شريط الصوت */
+.player-bar.on ~ .fab { bottom: calc(98px + var(--sab)); }
+
+#toast {
+  position: fixed;
+  top: calc(var(--nav-h) + 8px + var(--sat));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 95;
+  max-width: min(90vw, 520px);
+  padding: 12px 24px;
+  background: var(--green-dark);
+  color: var(--ivory);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-pill);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t) ease, transform var(--t) ease;
+  box-shadow: var(--shadow-lg);
+}
+#toast.on { opacity: 1; transform: translateX(-50%) translateY(4px); }

@@ -1,0 +1,117 @@
+<!-- ============ مشغل سورة يس العائم — تجربة صوتية للموقع كله ============
+     يبدأ تلقائيًا عند أول تفاعل حقيقي من المستخدم (audio.js → initFirstInteraction)
+     يظهر المشغل بعد بدء الصوت فقط. × يخفي المشغل ولا يوقف الصوت،
+     ويظهر زر صغير لإعادة إظهاره. -->
+<div class="player-bar" id="playerBar" role="region" aria-label="مشغل سورة يس" aria-hidden="true">
+  <span class="player-title">
+    <span data-icon="book" data-icon-size="17"></span>
+    <span>سورة يس</span>
+  </span>
+
+  <span class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+
+  <button class="icon-btn" type="button" id="restartBtn" aria-label="إعادة سورة يس من البداية">
+    <span data-icon="restart" data-icon-size="17"></span>
+  </button>
+
+  <input class="player-seek" type="range" id="seekSlider" min="0" max="100" step="0.1" value="0"
+         aria-label="موضع التشغيل" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+
+  <span class="player-time" id="timeLabel" dir="ltr">0:00 / 0:00</span>
+
+  <button class="icon-btn" type="button" id="muteBtn" aria-label="كتم الصوت" aria-pressed="false"></button>
+
+  <input class="player-vol" type="range" id="volSlider" min="0" max="1" step="0.05" value="0.4"
+         aria-label="مستوى الصوت" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0.4">
+
+  <button class="icon-btn player-pp" type="button" id="ppBtn" aria-label="تشغيل سورة يس"></button>
+
+  <button class="icon-btn player-close" type="button" id="playerClose" aria-label="إخفاء المشغل">
+    <span data-icon="close" data-icon-size="15"></span>
+  </button>
+</div>
+
+<!-- زر صغير لإعادة إظهار المشغل — لا يوقف الصوت -->
+<button class="player-mini" type="button" id="playerMini" hidden aria-label="إظهار مشغل سورة يس">
+  <span data-icon="play" data-icon-size="15"></span>
+  <span id="playerMiniLabel">سورة يس</span>
+</button>
+
+<!-- ============ زر الدعاء العائم (#35) ============ -->
+<button class="fab" type="button" id="fab" aria-haspopup="dialog">
+  <span data-icon="hands" data-icon-size="20"></span>
+  <span>ادعُ لها</span>
+</button>
+
+<!-- Toast (#54) -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ نافذة الدعاء (#35) ============ -->
+<div class="modal" id="duaModal" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="dlgTitle"><span class="h-ico" data-icon="hands" data-icon-size="20"></span>{{deceased.duaLabel}}</h3>
+      <button class="modal-x" type="button" id="dlgCloseX" aria-label="إغلاق نافذة الدعاء">
+        <span data-icon="close" data-icon-size="16"></span>
+      </button>
+    </div>
+    <p class="modal-dua" id="dlgTxt"></p>
+    <span class="modal-source" id="dlgSrc"></span>
+
+    <button class="tap tap-count" type="button" id="dlgTap" data-k="d0" aria-label="عدّاد الدعاء: اضغط للعدّ">
+      <span class="tap-hint">اضغط للعدّ</span>
+      <span class="counter-mini" data-count="d0" aria-live="polite" aria-atomic="true">٠</span>
+    </button>
+
+    <div class="modal-actions">
+      <button class="btn gold" type="button" id="dlgMore">
+        <span data-icon="spark" data-icon-size="17"></span><span>دعاء آخر</span>
+      </button>
+      <button class="btn" type="button" id="dlgCopy">
+        <span data-icon="copy" data-icon-size="17"></span><span>نسخ الدعاء</span>
+      </button>
+      <button class="btn" type="button" id="dlgClose">
+        <span data-icon="close" data-icon-size="17"></span><span>إغلاق</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ نافذة إعادة العدّاد (#19) ============ -->
+<div class="modal" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="rstTitle" aria-hidden="true">
+  <div class="modal-box">
+    <h3 id="rstTitle">هل تريد إعادة عدّادك إلى الصفر؟</h3>
+    <p class="tiny" style="margin-bottom:20px">سيُمسح العدّاد من هذا الجهاز فقط.</p>
+    <div class="modal-actions">
+      <button class="btn" type="button" id="rstNo">إلغاء</button>
+      <button class="btn gold" type="button" id="rstYes">إعادة العدّاد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ قارئ القرآن (#26, #27, #28) ============ -->
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="قارئ القرآن الكريم" aria-hidden="true">
+  <div class="reader-head">
+    <button class="mini" type="button" id="rClose" aria-label="إغلاق القارئ">
+      <span data-icon="close" data-icon-size="15"></span><span>إغلاق</span>
+    </button>
+
+    <span class="font-label" id="fontLabel" aria-live="polite">٣٠</span>
+    <button class="mini" type="button" id="fDn" aria-label="تصغير الخط">
+      <span data-icon="minus" data-icon-size="15"></span><span>A−</span>
+    </button>
+    <button class="mini" type="button" id="fUp" aria-label="تكبير الخط">
+      <span data-icon="plus" data-icon-size="15"></span><span>A+</span>
+    </button>
+    <button class="mini" type="button" id="fReset">الحجم الافتراضي</button>
+  </div>
+  <div id="rbody"></div>
+</div>
+
+<!-- QR (يُحمّل عند الظهور فقط) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+
+<!-- التطبيق -->
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+/* ============================================================
+   5) النافبار (#39)
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: var(--sat);
+  inset-inline: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: var(--nav-h);
+  padding: 10px 20px;
+  color: var(--ivory);
+  transition: background var(--t) ease, box-shadow var(--t) ease, padding var(--t) ease;
+}
+.navbar.scrolled {
+  background: rgba(11, 61, 46, 0.92);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--gold-soft);
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 0;
+}
+.brand span { overflow: hidden; text-overflow: ellipsis; }
+.brand svg { flex: none; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  display: block;
+  padding: 8px 13px;
+  border-radius: var(--radius-pill);
+  color: var(--ivory);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.9;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease, opacity var(--t-fast) ease;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  background: rgba(216, 190, 99, 0.16);
+  color: var(--gold-soft);
+  opacity: 1;
+}
+
+.nav-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.nav-icon {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--gold-soft);
+  transition: background var(--t-fast) ease, transform var(--t-fast) var(--ease);
+}
+.nav-icon:hover { background: rgba(216, 190, 99, 0.16); }
+.nav-icon:active { transform: scale(0.92); }
+
+#burger { display: none; }
+
+@media (max-width: 900px) {
+  #burger { display: grid; }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 12px 20px 18px;
+    background: rgba(11, 61, 46, 0.985);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+    display: none;
+    max-height: calc(100dvh - var(--nav-h) - var(--sat));
+    overflow-y: auto;
+  }
+  .nav-links.open { display: flex; animation: menuIn 0.45s var(--ease); }
+  .nav-links a { padding: 13px 14px; font-size: 16px; }
+}
+@keyframes menuIn { from { opacity: 0; transform: translateY(-10px); } }
+
+/* ============================================================
+   6) Hero (#6)
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: calc(var(--nav-h) + 36px) 24px 96px;
+  text-align: center;
+  color: var(--ivory);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 22%, var(--green-light) 0%, var(--green) 38%, var(--green-dark) 78%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 4l9 21 21-9-9 21 21 9-21 9 9 21-21-9-9 21-9-21-21 9 9-21-21-9 21-9-9-21 21 9z' fill='none' stroke='%23D8BE63' stroke-width='1.1'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+.hero > * { position: relative; z-index: 1; }
+
+.hero-crescent {
+  width: 96px; height: 96px;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 0 24px rgba(216, 190, 99, 0.45));
+  animation: floaty 9s var(--ease) infinite alternate;
+}
+@keyframes floaty { to { transform: translateY(-9px); } }
+
+.hero-kicker {
+  font-size: clamp(19px, 4vw, 25px);
+  color: var(--gold-soft);
+  letter-spacing: 0.02em;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* حجم متجاوب آمن: لا يتجاوز عرض الشاشة أبدًا */
+.hero h1 {
+  font-size: clamp(26px, 6.2vw, 58px);
+  line-height: 1.35;
+  margin: 6px 0 16px;
+  font-weight: 800;
+  max-width: 100%;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.22);
+}
+.hero-dua {
+  max-width: min(36ch, 100%);
+  font-size: clamp(17px, 3vw, 22px);
+  line-height: 2;
+  color: var(--on-dark-soft);
+  margin: 0 0 30px;
+}
+.hero .btn { color: var(--ivory); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: calc(20px + var(--sab));
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold-soft);
+  font-size: 14px;
+  opacity: 0.85;
+  animation: hintFloat 4s var(--ease) infinite alternate;
+}
+.scroll-hint svg { animation: hintDown 2.6s var(--ease) infinite; }
+@keyframes hintFloat { to { transform: translateY(6px); opacity: 0.5; } }
+@keyframes hintDown { 50% { transform: translateY(5px); } }

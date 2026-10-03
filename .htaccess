@@ -1,0 +1,57 @@
+# ============================================================
+#  صدقة جارية — إعدادات Apache
+# ============================================================
+
+# الصفحة الافتراضية
+DirectoryIndex index.html
+
+# ترميز UTF-8
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # امنع الوصول إلى ملفات النظام
+  RewriteRule ^(manifest\.webmanifest|sw\.js)$ - [L]
+  ErrorDocument 404 /index.html
+</IfModule>
+
+# ---------- رؤوس الأمان ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://api.quran.com https://api.alquran.cloud; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'"
+
+  # لا تُخزّن الصوت طويلًا
+  <FilesMatch "\.(mp3|m4a|ogg|wav)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# ---------- تخزين طويل للأصول الثابتة ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 day"
+</IfModule>
+
+# ---------- ضغط GZIP ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/manifest+json image/svg+xml
+</IfModule>
+
+# ---------- دعم Range للصوت (مهم للتشغيل/التقديم) ----------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(mp3|m4a|ogg)$">
+    Header set Accept-Ranges "bytes"
+  </FilesMatch>
+</IfModule>

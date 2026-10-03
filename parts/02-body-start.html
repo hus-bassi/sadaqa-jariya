@@ -1,0 +1,77 @@
+<!-- ============ JSON-LD ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{site.title}}",
+  "alternateName": "{{site.shortName}}",
+  "description": "{{site.description}}",
+  "inLanguage": "ar",
+  "url": "{{site.url}}",
+  "potentialAction": { "@type": "ReadAction", "target": { "@type": "WebPage", "url": "{{site.url}}#quran" } }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ما هذا الموقع؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "هو {{site.title}}، يتيح قراءة سورة يس والاستماع إليها والدعاء والاستغفار والذكر، دون أي تسجيل أو بيانات شخصية." }
+    },
+    {
+      "@type": "Question",
+      "name": "هل يجب تسجيل الدخول؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "لا. الموقع مفتوح بالكامل، ولا يطلب اسمًا ولا بريدًا ولا أي بيانات، والعدادات تُحفظ على جهازك فقط." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+<!-- ============ الخلفية الزخرفية (#36) ============ -->
+<div class="ambient" aria-hidden="true"><div class="dust"></div></div>
+
+<!-- شريط تقدم التمرير (#40) -->
+<div id="prog" aria-hidden="true"></div>
+
+<!-- شريط عدم الاتصال (#48) -->
+<div class="offline-banner" id="offlineBanner" role="status" hidden>
+  يبدو أنك غير متصل بالإنترنت. بعض المحتوى قد لا يكون متاحًا حاليًا.
+</div>
+
+<!-- ============ النافبار (#39) ============ -->
+<nav class="navbar" id="nav" aria-label="التنقل الرئيسي">
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15.5 3.5A9 9 0 1 0 20.5 15a7 7 0 0 1-5-11.5z"/>
+      <path d="M19 3l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/>
+    </svg>
+    <span>{{site.shortName}}</span>
+  </a>
+
+  <ul class="nav-links" id="menu">
+    <li><a href="#dua">الدعاء</a></li>
+    <li><a href="#istighfar">الاستغفار</a></li>
+    <li><a href="#dhikr">الذكر</a></li>
+    <li><a href="#quran">القرآن</a></li>
+    <li><a href="#share">المشاركة</a></li>
+    <li><a href="#about">عن الصدقة</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="nav-icon" id="burger" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="menu" data-icon="menu" data-icon-size="24"></button>
+  </div>
+</nav>
+
+<main id="main">
+  <noscript>
+    <div class="noscript-box">
+      <p><b>هذا الموقع يحتاج تفعيل JavaScript</b></p>
+      <p style="margin:0">يمكنك القراءة والدعاء أو الاستغفار مباشرة من هذه الصفحة — التفاعل الكامل يحتاج JavaScript.</p>
+    </div>
+  </noscript>

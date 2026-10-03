@@ -1,0 +1,260 @@
+/* ============================================================
+   16) الفوتر (#42) + المشاركة/QR + noscript
+   ============================================================ */
+/* فاصل إسلامي فوق الفوتر (§48) */
+.footer-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 22px;
+}
+.footer-divider span {
+  flex: 1;
+  height: 1px;
+  max-width: 220px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.footer-divider svg { flex: none; opacity: 0.85; }
+
+footer {
+  position: relative;
+  padding: 52px 22px calc(170px + var(--sab)); /* مساحة للمشغل العائم */
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 90, 66, 0.45), transparent 62%),
+    linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+  color: var(--text-primary);
+  text-align: center;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 4l9 21 21-9-9 21 21 9-21 9 9 21-21-9-9 21-9-21-21 9 9-21-21-9 21-9-9-21 21 9z' fill='none' stroke='%23C9A227' stroke-width='1.1'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+footer > * { position: relative; }
+
+.footer-brand {
+  font-size: clamp(21px, 3.6vw, 27px);
+  font-weight: 800;
+  color: var(--gold-soft);
+  margin: 0 0 10px;
+}
+.footer-tagline {
+  max-width: 54ch;
+  margin: 0 auto 26px;
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--text-secondary);
+}
+
+/* شعارات التواصل (§26-§28) */
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 26px;
+}
+.social-link {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: rgba(11, 61, 46, 0.55);
+  color: var(--gold-soft);
+  text-decoration: none;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease,
+    border-color var(--t-fast) ease, transform var(--t-fast) var(--ease);
+}
+.social-link:hover,
+.social-link:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+}
+.social-link:active { transform: scale(0.94); }
+.social-link svg { width: 18px; height: 18px; }
+
+.footer-copy {
+  margin: 0 0 6px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.footer-copy-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.footer-note { font-size: 14px; color: var(--text-secondary); opacity: 0.85; margin: 0; }
+.footer-template {
+  font-size: 12.5px;
+  color: var(--gold);
+  opacity: 0.8;
+  margin: 10px 0 0;
+}
+
+.share-link { text-decoration: none; color: var(--text-soft); }
+.share-link:hover { color: var(--text); }
+
+.qr-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  min-width: min(240px, 100%);
+  min-height: 240px;
+  margin: 20px auto;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.qr-box img, .qr-box canvas { display: block; max-width: 100%; height: auto; }
+.qr-fallback {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text-primary);
+  padding: 20px;
+  text-align: center;
+}
+
+.noscript-box {
+  max-width: 720px;
+  margin: 20px auto;
+  padding: 22px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* ============================================================
+   17) شريط عدم الاتصال (#48)
+   ============================================================ */
+.offline-banner {
+  position: relative;
+  z-index: 20;
+  padding: 10px 20px;
+  background: rgba(201, 162, 39, 0.14);
+  border-bottom: 1px solid var(--line);
+  color: var(--text-soft);
+  text-align: center;
+  font-size: 14.5px;
+}
+
+/* ============================================================
+   18) الحركات — Fade / Reveal (#37)
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ============================================================
+   19) الاستجابة للشاشات (#43)
+   ============================================================ */
+@media (max-width: 860px) {
+  .player-time { min-width: 72px; font-size: 11.5px; }
+  .player-vol { display: none; }
+  .player-bar { gap: 9px; padding: 10px 12px; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .sec { padding: 56px 18px; }
+  .dua-text { font-size: 18px; }
+  .grid { grid-template-columns: 1fr; }
+  .tap { min-height: 78px; font-size: 21px; }
+  .fab { padding: 0 18px; font-size: 15px; }
+  .player-title span { display: none; }
+  /* مشغّل الصوت على الموبايل — تخطيط من سطرين (§19) */
+  .player-bar {
+    inset-inline: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+    padding: 10px 12px calc(10px + var(--sab));
+    border-radius: 20px;
+  }
+  .player-seek { order: 3; flex: 1 1 100%; min-width: 0; }
+  .player-time { order: 4; min-width: auto; font-size: 11.5px; }
+  .wave { order: 1; }
+  .player-mini { bottom: calc(14px + var(--sab)); }
+  .modal { padding: 16px; }
+  .modal-box { padding: 30px 22px calc(26px + var(--sab)); }
+  .modal-box h3 { font-size: 21px; }
+  .modal-head { padding-inline-start: 40px; padding-inline-end: 40px; }
+  .modal-dua { font-size: 19px; }
+  /* الأزرار تتحوّل إلى Stack عند ضيق المساحة */
+  .modal-actions { flex-direction: column; align-items: stretch; gap: 9px; }
+  .modal-actions .btn { width: 100%; }
+  .card { padding: 20px; }
+  .stack { gap: 10px; }
+  .stack .btn { flex: 1 1 100%; }
+  #rbody { font-size: 26px; padding: 26px 18px 120px; }
+}
+
+@media (max-width: 380px) {
+  .player-time { display: none; }
+  .counter-big { font-size: 52px; }
+  .fab { padding: 0 14px; }
+  .hero h1 { font-size: 24px; }
+  /* شعارات التواصل أصغر قليلًا على الشاشات الضيقة (§28) */
+  .social-link { width: 38px; height: 38px; }
+  .social-row { gap: 10px; }
+}
+
+/* ============================================================
+   20) Reduced Motion (#38)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ambient .dust { display: none; }
+  .reveal { opacity: 1; transform: none; }
+  .wave i { animation: none !important; height: 10px; }
+  .hero-crescent { animation: none !important; }
+  /* نافذة الدعاء: بلا حركة، والوظيفة نفسها باقية (JS يتخطى الانيميشن) */
+  .modal,
+  .modal-box,
+  .modal.closing .modal-box { animation: none; }
+  .modal-x,
+  .modal-box .btn,
+  .fab { transition: none !important; }
+  /* نُبقي التوهّج الأساسي، ونزيل فقط توهّج hover */
+  .fab:hover { box-shadow: 0 8px 30px rgba(11, 61, 46, 0.25); }
+  .modal-box .btn:hover { box-shadow: none; }
+}
+
+/* ============================================================
+   21) الطباعة
+   ============================================================ */
+@media print {
+  nav, .fab, .player-bar, #toast, .ambient, .offline-banner, #prog,
+  .sec .btn, .card-actions, .reader, .modal, .tap { display: none !important; }
+  body { background: #fff; color: #000; }
+  .sec { padding: 18px; }
+  .sec.alt { background: #fff; }
+}

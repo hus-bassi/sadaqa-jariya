@@ -1,0 +1,76 @@
+  <!-- ============ Hero (#6) ============ -->
+  <header class="hero" id="top">
+    <svg class="hero-crescent" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#D8BE63" stroke-width="2" opacity="0.35"/>
+      <path d="M62 14a36 36 0 1 0 0 72 29 29 0 1 1 0-72z" fill="none" stroke="#D8BE63" stroke-width="3"/>
+      <path d="M74 40l3 7.2 7.8 1-5.6 5.4 1.4 7.8L74 57.6l-6.6 3.8 1.4-7.8-5.6-5.4 7.8-1z" fill="#D8BE63"/>
+    </svg>
+
+    <p class="hero-kicker">{{site.shortName}}</p>
+    <h1>{{deceased.greeting}}</h1>
+    <p class="hero-dua">{{dua.intro}}</p>
+
+    <button class="tap tap-count" type="button" data-k="d0" aria-label="عدّاد الدعاء: اضغط للعدّ">
+      <span class="tap-hint">اضغط للعدّ</span>
+      <span class="counter-mini" data-count="d0" aria-live="polite" aria-atomic="true">٠</span>
+    </button>
+
+    <div class="stack">
+      <button class="btn gold" type="button" data-go="#dua">
+        <span data-icon="hands" data-icon-size="18"></span><span>{{deceased.duaLabel}}</span>
+      </button>
+      <button class="btn" type="button" data-go="#istighfar">
+        <span data-icon="heart" data-icon-size="18"></span><span>{{deceased.istighfarLabel}}</span>
+      </button>
+    </div>
+
+    <span class="scroll-hint" aria-hidden="true">
+      <span>مرّر للأسفل</span>
+      <span data-icon="chevronDown" data-icon-size="20"></span>
+    </span>
+  </header>
+
+  <!-- ============ الدعاء (#15, #16) ============ -->
+  <section class="sec reveal" id="dua" aria-labelledby="duaTitle">
+    <svg class="ornament" viewBox="0 0 170 20" aria-hidden="true">
+      <line x1="0" y1="10" x2="66" y2="10" stroke="#C9A227" stroke-width="1.2"/>
+      <line x1="104" y1="10" x2="170" y2="10" stroke="#C9A227" stroke-width="1.2"/>
+      <path d="M85 2l6 8-6 8-6-8z" fill="#C9A227"/>
+      <circle cx="74" cy="10" r="2" fill="#C9A227"/><circle cx="96" cy="10" r="2" fill="#C9A227"/>
+    </svg>
+
+    <h2 id="duaTitle"><span class="h-ico" data-icon="hands" data-icon-size="26"></span>{{deceased.duaLabel}}</h2>
+    <p class="lead">اللهم اغفر لها وارحمها وعافها واعف عنها، وأكرم نزلها ووسع مدخلها، واغسلها بالماء والثلج والبرد، ونقّها من الخطايا كما نقيت الثوب الأبيض من الدنس.</p>
+
+    <button class="tap tap-count" type="button" data-k="duaLead" aria-label="عدّاد الدعاء: اضغط للعدّ">
+      <span class="tap-hint">اضغط للعدّ</span>
+      <span class="counter-mini" data-count="duaLead" aria-live="polite" aria-atomic="true">٠</span>
+    </button>
+
+    <div class="grid" id="duaGrid"></div>
+
+    <div class="mt-lg">
+      <button class="btn gold" type="button" id="moreDua">
+        <span data-icon="spark" data-icon-size="18"></span><span>دعاء آخر</span>
+      </button>
+    </div>
+
+    <div class="card rnd-card" id="rndCard" hidden>
+      <p class="dua-text" id="rndTxt"></p>
+      <span class="dua-source" id="rndSrc"></span>
+
+      <button class="tap tap-count" type="button" id="rndTap" data-k="d0" aria-label="عدّاد الدعاء: اضغط للعدّ">
+        <span class="tap-hint">اضغط للعدّ</span>
+        <span class="counter-mini" data-count="d0" aria-live="polite" aria-atomic="true">٠</span>
+      </button>
+
+      <div class="card-actions" style="justify-content:center">
+        <button class="mini" type="button" id="rndCopy">
+          <span data-icon="copy" data-icon-size="16"></span><span>نسخ</span>
+        </button>
+        <button class="mini" type="button" id="rndShare">
+          <span data-icon="share" data-icon-size="16"></span><span>مشاركة</span>
+        </button>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,58 @@
+# ============================================================
+#  صدقة جارية — رؤوس الأمن والكاش
+#  الصيغة: Netlify / Cloudflare Pages
+#  ملاحظة: التعليقات في هذا الملف تبدأ بـ # (صيغة Netlify/Cloudflare).
+#  على Apache استخدم .htaccess المرفق بدلًا من هذا الملف.
+# ============================================================
+
+# ---------- رؤوس الأمن لكل المسارات ----------
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://api.quran.com https://api.alquran.cloud; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# ---------- الأصول الثابتة: كاش طويل ----------
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ---------- الصوت: كاش أسبوع ----------
+# ملاحظة: Accept-Ranges يتجاهله Netlify (رؤوس يتحكم بها الخادم).
+# للـ Apache يُضبط في .htaccess — وهو مهم لتقديم/تأخير الصوت.
+/assets/audio/*
+  Cache-Control: public, max-age=604800
+
+# ---------- كود التطبيق: يجب أن يُحدَّث فورًا ----------
+# مهم: بدون هذا قد يخدم المتصفح نسخة قديمة من main.js بعد النشر
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ---------- Service Worker: لا كاش أبدًا ----------
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# ---------- المانيفست ----------
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=86400
+
+# ---------- صفحات HTML: تحقّق دائم ----------
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ---------- ملفات SEO ----------
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=86400

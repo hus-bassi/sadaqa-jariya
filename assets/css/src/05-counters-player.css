@@ -1,0 +1,235 @@
+/* ============================================================
+   10) العدادات
+   ============================================================ */
+.counter-big {
+  display: block;
+  font-size: clamp(54px, 13vw, 108px);
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1.15;
+  margin: 8px 0;
+  transition: transform var(--t) var(--ease);
+}
+.counter-big.pop { transform: scale(1.07); }
+.counter-label { color: var(--text-soft); margin: 0 0 18px; font-size: 15px; }
+.counter-mini {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  transition: transform var(--t) var(--ease);
+}
+.counter-mini.pop { transform: scale(1.14); }
+
+.flash-msg {
+  min-height: 32px;
+  color: var(--gold);
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--t) ease, transform var(--t) var(--ease);
+}
+.flash-msg.show { opacity: 1; transform: none; }
+
+/* ملخص "أعمالك اليوم" — بلا منافسة ولا ترتيب (#24) */
+.summary { max-width: 480px; margin: 34px auto 0; text-align: start; }
+.summary h3 { text-align: center; margin: 0 0 10px; color: var(--heading); font-size: 20px; }
+.summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 9px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 16px;
+}
+.summary-row:last-child { border: 0; }
+.summary-row b { color: var(--gold); font-weight: 800; font-size: 18px; }
+.summary-total {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1.5px solid var(--line);
+  font-weight: 800; color: var(--heading);
+}
+
+.tasbih-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
+  gap: 16px;
+}
+.tasbih-card {
+  text-align: center;
+  display: flex; flex-direction: column; gap: 10px; align-items: center;
+}
+
+/* ============================================================
+   11) مشغل سورة يس العائم — تجربة صوتية للموقع كله (#10, #11, #12, #44)
+   ============================================================ */
+.player-bar {
+  position: fixed;
+  z-index: 80; /* أقل من الـ modal (90) وأعلى من النافبار (50) */
+  inset-inline: 12px;
+  bottom: calc(12px + var(--sab));
+  display: none;
+  align-items: center;
+  gap: 10px;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 10px 14px;
+  background: var(--bg-secondary); /* #0B3D2E */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  border: 1px solid var(--gold); /* #C9A227 */
+  border-radius: 22px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+.player-bar.on {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.player-title {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-weight: 700; font-size: 14.5px; white-space: nowrap;
+  color: var(--gold-soft);
+  flex: none;
+}
+.player-title svg { flex: none; }
+
+.icon-btn {
+  display: inline-grid; place-items: center;
+  min-width: 40px; min-height: 40px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--gold-soft);
+  transition: background var(--t-fast) ease, color var(--t-fast) ease,
+    transform var(--t-fast) var(--ease);
+}
+.icon-btn:hover { background: rgba(216, 190, 99, 0.16); }
+.icon-btn:active { transform: scale(0.92); }
+
+/* زر التشغيل/الإيقاف — بارز لأنه التحكم الأساسي */
+.player-pp {
+  min-width: 46px; min-height: 46px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  border-color: transparent;
+  color: var(--bg-primary);
+  box-shadow: 0 6px 18px rgba(201, 162, 39, 0.30);
+}
+.player-pp:hover { background: linear-gradient(135deg, var(--gold), var(--gold-soft)); filter: brightness(1.06); }
+
+.player-close { min-width: 34px; min-height: 34px; border-color: transparent; color: var(--text-soft); }
+.player-close:hover { background: rgba(248, 245, 234, 0.10); color: var(--text-primary); }
+
+/* شريط التقدّم — ذهب على track فاتح (§15) */
+.player-seek {
+  flex: 1 1 110px;
+  min-width: 70px;
+  height: 22px;
+  accent-color: var(--gold);
+}
+.player-vol { width: 60px; flex: none; height: 22px; accent-color: var(--gold); }
+.player-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  min-width: 84px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* زر صغير لإعادة إظهار المشغل (§13) */
+.player-mini {
+  position: fixed;
+  z-index: 80;
+  inset-inline-end: 14px;
+  bottom: calc(18px + var(--sab));
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--gold);
+  background: var(--bg-secondary);
+  color: var(--gold-soft);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: miniIn 0.4s ease-out forwards;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease;
+}
+.player-mini:hover { background: var(--gold); color: var(--bg-primary); }
+@keyframes miniIn { to { opacity: 1; transform: translateY(0); } }
+
+/* موجات الصوت (§17) */
+.wave { display: inline-flex; align-items: center; gap: 3px; height: 18px; flex: none; }
+.wave i {
+  width: 3px; height: 6px;
+  background: var(--gold-soft);
+  border-radius: 2px;
+  animation: waveUp 2.6s var(--ease) infinite alternate;
+}
+.wave i:nth-child(1) { animation-delay: 0s; }
+.wave i:nth-child(2) { animation-delay: 0.35s; }
+.wave i:nth-child(3) { animation-delay: 0.7s; }
+.wave i:nth-child(4) { animation-delay: 1.05s; }
+.wave i:nth-child(5) { animation-delay: 1.4s; }
+@keyframes waveUp { to { height: 18px; } }
+/* تتوقف الموجات عند الإيقاف المؤقت */
+.player-bar:not(.on) .wave i,
+.player-mini ~ .player-bar .wave i { animation-play-state: paused; }
+.paused .wave i { animation: none; height: 6px; opacity: 0.5; }
+
+.now-playing {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 34px;
+  color: var(--gold);
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity var(--t) ease;
+}
+.now-playing.active { opacity: 1; }
+.now-playing.active .wave i { box-shadow: 0 0 8px rgba(216, 190, 99, 0.6); }
+
+/* رسالة هادئة عند رفض المتصفح التشغيل أو غياب المصدر (#9) */
+.audio-hint, .audio-fallback {
+  display: block;
+  max-width: 520px;
+  margin: 14px auto 0;
+  padding: 12px 18px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--text-soft);
+  font-size: 15px;
+  text-align: center;
+}
+.audio-fallback { color: var(--gold); border-style: solid; }
+
+/* ============================================================
+   12) Spinner إسلامي (#55)
+   ============================================================ */
+.spinner {
+  width: 34px; height: 34px;
+  margin: 26px auto;
+  border: 3px solid rgba(201, 162, 39, 0.22);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 1.8s linear infinite;
+}
+.spinner.sm {
+  width: 18px; height: 18px;
+  margin: 0;
+  border-width: 2px;
+  display: inline-block;
+  vertical-align: -3px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

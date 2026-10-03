@@ -1,0 +1,48 @@
+# ============================================================
+#  Sadaqah Jariyah Template — ignored files
+# ============================================================
+
+# ---------- Secrets & local env ----------
+.env
+.env.local
+.env.*.local
+# إعدادات الصوت المحلية — انسخ من env.local.example.js
+assets/js/env.local.js
+
+# ---------- Node ----------
+node_modules/
+npm-debug.log*
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# ---------- Build output ----------
+.next/
+dist/
+build/
+out/
+.cache/
+
+# ---------- Temp test dirs (this project) ----------
+.smoke-tmp/
+.modal-tmp/
+
+# ---------- Screenshots (personal / outdated) ----------
+shot-*.png
+
+# ---------- OS / editors ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*~
+
+# ---------- Audio (large — not committed, see README) ----------
+# لا ترفع ملفًا صوتيًا كبيرًا إلى GitHub. ضعه في assets/audio/
+# على الخادم، أو استخدم رابطًا خارجيًا في site.config.js
+assets/audio/*.mp3
+assets/audio/*.m4a
+assets/audio/*.ogg

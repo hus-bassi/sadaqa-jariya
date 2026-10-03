@@ -1,0 +1,86 @@
+  <!-- ============ الاستغفار (#17, #20, #21) ============ -->
+  <section class="sec alt reveal" id="istighfar" aria-labelledby="istTitle">
+    <h2 id="istTitle"><span class="h-ico" data-icon="heart" data-icon-size="26"></span>{{deceased.istighfarLabel}}</h2>
+    <p class="lead">اجعل لك نصيبًا من الاستغفار، واسأل الله أن يغفر ويرحم.</p>
+
+    <span class="counter-big" data-count="istighfar" aria-live="polite" aria-atomic="true">٠</span>
+    <p class="counter-label">عدّادك · استغفار</p>
+
+    <button class="tap" type="button" data-k="istighfar" aria-label="اضغط لاستغفار واحد">{{deceased.istighfarLabel}}</button>
+    <div class="flash-msg" id="istMsg" role="status" aria-live="polite"></div>
+
+    <div class="mt-md">
+      <button class="mini" type="button" id="resetBtn">إعادة العدّاد</button>
+    </div>
+
+    <h3 class="mt-lg"><span class="h-ico" data-icon="spark" data-icon-size="22"></span>صيغ الاستغفار</h3>
+    <div class="grid" id="istGrid"></div>
+
+    <!-- سيد الاستغفار — نص صحيح كما رواه البخاري (#21) -->
+    <article class="card mt-md sayyid" aria-labelledby="sayyidTitle">
+      <h3 id="sayyidTitle"><span class="h-ico" data-icon="spark" data-icon-size="20"></span>سيد الاستغفار</h3>
+      <p class="quran-text" id="sayyidTxt"></p>
+      <span class="dua-source">رواه البخاري (٦٣٩)</span>
+
+      <button class="tap tap-count" type="button" data-k="sayyid" aria-label="عدّاد سيد الاستغفار: اضغط للعدّ">
+        <span class="tap-hint">اضغط للعدّ</span>
+        <span class="counter-mini" data-count="sayyid" aria-live="polite" aria-atomic="true">٠</span>
+      </button>
+
+      <div class="card-actions" style="justify-content:center">
+        <button class="mini" type="button" id="sayyidCopy">
+          <span data-icon="copy" data-icon-size="16"></span><span>نسخ</span>
+        </button>
+        <button class="mini" type="button" id="sayyidShare">
+          <span data-icon="share" data-icon-size="16"></span><span>مشاركة</span>
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ الصلاة على النبي ﷺ + التسبيح (#22, #23, #24) ============ -->
+  <section class="sec reveal" id="dhikr" aria-labelledby="salawatTitle">
+    <h2 id="salawatTitle"><span class="h-ico" data-icon="spark" data-icon-size="26"></span>صلِّ على النبي ﷺ</h2>
+    <p class="lead">صلِّ على نبينا محمد ﷺ، فكل صلاةٍ تصل إليه، وله بها عشرُ حسنات.</p>
+
+    <span class="counter-big" data-count="salawat" aria-live="polite" aria-atomic="true">٠</span>
+    <p class="counter-label">عدّادك · الصلاة على النبي ﷺ</p>
+
+    <button class="tap compact" type="button" data-k="salawat" style="width:min(100%,460px)" aria-label="اضغط للصلاة على النبي ﷺ">
+      اللهم صلِّ وسلم وبارك على نبينا محمد ﷺ
+    </button>
+
+    <h3 class="mt-lg"><span class="h-ico" data-icon="spark" data-icon-size="22"></span>سبّح الله</h3>
+
+    <div class="tasbih-grid">
+      <div class="card tasbih-card">
+        <span class="counter-mini" data-count="subhan" aria-live="polite">٠</span>
+        <button class="tap compact" type="button" data-k="subhan">سبحان الله</button>
+      </div>
+      <div class="card tasbih-card">
+        <span class="counter-mini" data-count="hamd" aria-live="polite">٠</span>
+        <button class="tap compact" type="button" data-k="hamd">الحمد لله</button>
+      </div>
+      <div class="card tasbih-card">
+        <span class="counter-mini" data-count="akbar" aria-live="polite">٠</span>
+        <button class="tap compact" type="button" data-k="akbar">الله أكبر</button>
+      </div>
+      <div class="card tasbih-card">
+        <span class="counter-mini" data-count="tahlil" aria-live="polite">٠</span>
+        <button class="tap compact" type="button" data-k="tahlil" style="font-size:17px">لا إله إلا الله</button>
+      </div>
+    </div>
+
+    <!-- ملخص أعمالك — بلا منافسة ولا ترتيب (#24) -->
+    <div class="card summary" aria-labelledby="sumTitle">
+      <h3 id="sumTitle">أعمالك اليوم</h3>
+      <p class="tiny center" style="margin:0 0 10px">أرقامك على جهازك فقط — ليست مقارنة بغيرك.</p>
+      <div class="summary-row"><span>الاستغفار</span><b data-count="istighfar">٠</b></div>
+      <div class="summary-row"><span>الصلاة على النبي ﷺ</span><b data-count="salawat">٠</b></div>
+      <div class="summary-row"><span>سبحان الله</span><b data-count="subhan">٠</b></div>
+      <div class="summary-row"><span>الحمد لله</span><b data-count="hamd">٠</b></div>
+      <div class="summary-row"><span>الله أكبر</span><b data-count="akbar">٠</b></div>
+      <div class="summary-row"><span>لا إله إلا الله</span><b data-count="tahlil">٠</b></div>
+      <div class="summary-total"><span>مجموع أذكارك</span><span id="totalCount">٠</span></div>
+    </div>
+  </section>
