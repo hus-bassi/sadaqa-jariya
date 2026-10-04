@@ -46,3 +46,9 @@ desktop.ini
 assets/audio/*.mp3
 assets/audio/*.m4a
 assets/audio/*.ogg
+
+# ---------- The recitation itself MUST be published ----------
+# The Yaseen player points to assets/audio/yaseen.mp3, so the deployed
+# site cannot play anything without it. This one file is therefore tracked
+# on purpose; every other audio file stays ignored to keep the repo light.
+!assets/audio/yaseen.mp3
