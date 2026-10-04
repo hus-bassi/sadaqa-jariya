@@ -92,7 +92,7 @@ try {
 if (!process.exitCode) {
   const required = ['nav', 'burger', 'menu', 'duaGrid', 'istGrid', 'qGrid', 'deedsGrid',
     'totalCount', 'playerBar', 'playerMini', 'ppBtn', 'seekSlider',
-    'muteBtn', 'volSlider', 'timeLabel', 'playerClose', 'reader', 'rbody', 'fab', 'toast',
+    'muteBtn', 'volSlider', 'timeLabel', 'playerClose', 'reader', 'rbody', 'toast',
     'qr', 'shareBtn', 'socialRow', 'footerCopy', 'istMsg', 'resetBtn', 'offlineBanner', 'prog'];
   const missing = required.filter((id) => !byId.has(id));
   if (missing.length) {

@@ -6,7 +6,7 @@
  *  ⚠️ لا يخزّن الصوت ولا نصوص القرآن (حقوق النشر / التوزيع).
  * ============================================================
  */
-const VERSION = 'v1.1.0';
+const VERSION = 'v1.2.0';
 const CACHE = `sadaqa-cache-${VERSION}`;
 
 /* أصول التطبيق الأساسية فقط */
@@ -70,7 +70,7 @@ self.addEventListener('fetch', (e) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put('./index.html', copy));
+          e.waitUntil(caches.open(CACHE).then((c) => c.put('./index.html', copy)));
           return res;
         })
         .catch(() => caches.match('./index.html'))
@@ -78,20 +78,23 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // الأصول الثابتة: الكاش أولًا
+  // الأصول الثابتة: الشبكة أولًا مع تحديث الكاش
+  // ⚠️ كان هنا "الكاش أولًا" فتفضل نسخة قديمة من CSS/JS إلى ما لا نهاية،
+  //    فيبدو أن كل تعديل على التصميم "يرجع" بعد التحديث أو إعادة تشغيل الخادم.
+  //    الشبكة أولًا + الكاش كبديل عند انقطاع الاتصال = أحدث كود دائمًا + عمل دون إنترنت.
   if (url.origin === self.location.origin) {
     e.respondWith(
-      caches.match(req).then(
-        (cached) =>
-          cached ||
-          fetch(req).then((res) => {
-            if (res && res.status === 200 && res.type === 'basic') {
-              const copy = res.clone();
-              caches.open(CACHE).then((c) => c.put(req, copy));
-            }
-            return res;
-          })
-      )
+      fetch(req)
+        .then((res) => {
+          if (res && res.status === 200 && res.type === 'basic') {
+            const copy = res.clone();
+            e.waitUntil(caches.open(CACHE).then((c) => c.put(req, copy)));
+          }
+          return res;
+        })
+        .catch(() =>
+          caches.match(req).then((cached) => cached || caches.match('./index.html'))
+        )
     );
   }
 });

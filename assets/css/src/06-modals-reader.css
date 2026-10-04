@@ -244,39 +244,9 @@
 .reader .btn { color: var(--text-primary); }
 
 /* ============================================================
-   15) الزر العائم + Toast
+   15) Toast
+   ملاحظة: حُذف ".fab" (زر "ادعُ لها" العائم) بناءً على طلب المستخدم.
    ============================================================ */
-.fab {
-  position: fixed;
-  inset-inline-start: 14px;
-  bottom: calc(14px + var(--sab));
-  z-index: 54;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 54px;
-  padding: 0 22px;
-  border-radius: var(--radius-pill);
-  border: 2px solid var(--gold);
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-weight: 700;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) ease,
-    border-color var(--t-fast) ease;
-}
-.fab > span[data-icon] {
-  display: inline-grid;
-  place-items: center;
-  color: var(--gold-soft);
-}
-.fab:hover {
-  border-color: var(--gold-soft);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 22px rgba(201, 162, 39, 0.28);
-}
-.fab:active { transform: scale(0.97); }
-/* لا يغطي شريط الصوت */
-.player-bar.on ~ .fab { bottom: calc(98px + var(--sab)); }
 
 #toast {
   position: fixed;

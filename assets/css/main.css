@@ -424,7 +424,7 @@ a { color: var(--green); }
 
 /* أيقونات مرنة الحجم */
 .btn svg, .mini svg, .tap svg, .nav-icon svg, .icon-btn svg,
-.fab svg, .h-ico svg, .deed-icon svg, .scroll-hint svg {
+.h-ico svg, .deed-icon svg, .scroll-hint svg {
   flex: none;
   width: 1.15em;
   height: 1.15em;
@@ -434,7 +434,6 @@ a { color: var(--green); }
 .deed-icon svg { width: 24px; height: 24px; }
 .scroll-hint svg { width: 20px; height: 20px; }
 .nav-icon svg, .icon-btn svg { width: 20px; height: 20px; }
-.fab svg { width: 20px; height: 20px; }
 .player-title svg { width: 18px; height: 18px; }
 
 .btn.gold {
@@ -1185,39 +1184,9 @@ a { color: var(--green); }
 .reader .btn { color: var(--text-primary); }
 
 /* ============================================================
-   15) الزر العائم + Toast
+   15) Toast
+   ملاحظة: حُذف ".fab" (زر "ادعُ لها" العائم) بناءً على طلب المستخدم.
    ============================================================ */
-.fab {
-  position: fixed;
-  inset-inline-start: 14px;
-  bottom: calc(14px + var(--sab));
-  z-index: 54;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 54px;
-  padding: 0 22px;
-  border-radius: var(--radius-pill);
-  border: 2px solid var(--gold);
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-weight: 700;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) ease,
-    border-color var(--t-fast) ease;
-}
-.fab > span[data-icon] {
-  display: inline-grid;
-  place-items: center;
-  color: var(--gold-soft);
-}
-.fab:hover {
-  border-color: var(--gold-soft);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 22px rgba(201, 162, 39, 0.28);
-}
-.fab:active { transform: scale(0.97); }
-/* لا يغطي شريط الصوت */
-.player-bar.on ~ .fab { bottom: calc(98px + var(--sab)); }
 
 #toast {
   position: fixed;
@@ -1299,18 +1268,23 @@ footer > * { position: relative; }
 .social-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 12px;
   margin: 0 0 26px;
+  padding: 0;
+  list-style: none;
 }
+/* الأيقونة مرئية بوضوح: حدود ذهبية + خلفية خضراء أفتح من خلفية الفوتر */
 .social-link {
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  flex: none;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--gold);
-  background: rgba(11, 61, 46, 0.55);
+  border: 1px solid rgba(216, 190, 99, 0.55);
+  background: rgba(11, 61, 46, 0.75);
   color: var(--gold-soft);
   text-decoration: none;
   transition: background var(--t-fast) ease, color var(--t-fast) ease,
@@ -1324,7 +1298,11 @@ footer > * { position: relative; }
   transform: translateY(-2px);
 }
 .social-link:active { transform: scale(0.94); }
-.social-link svg { width: 18px; height: 18px; }
+.social-link:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 3px;
+}
+.social-link svg { width: 20px; height: 20px; }
 
 .footer-copy {
   margin: 0 0 6px;
@@ -1424,7 +1402,6 @@ footer > * { position: relative; }
   .dua-text { font-size: 18px; }
   .grid { grid-template-columns: 1fr; }
   .tap { min-height: 78px; font-size: 21px; }
-  .fab { padding: 0 18px; font-size: 15px; }
   .player-title span { display: none; }
   /* مشغّل الصوت على الموبايل — تخطيط من سطرين (§19) */
   .player-bar {
@@ -1456,10 +1433,10 @@ footer > * { position: relative; }
 @media (max-width: 380px) {
   .player-time { display: none; }
   .counter-big { font-size: 52px; }
-  .fab { padding: 0 14px; }
   .hero h1 { font-size: 24px; }
   /* شعارات التواصل أصغر قليلًا على الشاشات الضيقة (§28) */
-  .social-link { width: 38px; height: 38px; }
+  .social-link { width: 40px; height: 40px; }
+  .social-link svg { width: 18px; height: 18px; }
   .social-row { gap: 10px; }
 }
 
@@ -1484,10 +1461,7 @@ footer > * { position: relative; }
   .modal-box,
   .modal.closing .modal-box { animation: none; }
   .modal-x,
-  .modal-box .btn,
-  .fab { transition: none !important; }
-  /* نُبقي التوهّج الأساسي، ونزيل فقط توهّج hover */
-  .fab:hover { box-shadow: 0 8px 30px rgba(11, 61, 46, 0.25); }
+  .modal-box .btn { transition: none !important; }
   .modal-box .btn:hover { box-shadow: none; }
 }
 
@@ -1495,7 +1469,7 @@ footer > * { position: relative; }
    21) الطباعة
    ============================================================ */
 @media print {
-  nav, .fab, .player-bar, #toast, .ambient, .offline-banner, #prog,
+  nav, .player-bar, #toast, .ambient, .offline-banner, #prog,
   .sec .btn, .card-actions, .reader, .modal, .tap { display: none !important; }
   body { background: #fff; color: #000; }
   .sec { padding: 18px; }

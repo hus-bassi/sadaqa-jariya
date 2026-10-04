@@ -298,6 +298,7 @@ function initDuaModal() {
   const dlgSrc = $('#dlgSrc');
   const closeX = $('#dlgCloseX');
   let closeTimer = 0;
+  let lastTrigger = null; // الزر الذي فتح النافذة (لإعادة التركيز عند الإغلاق)
 
   const render = () => {
     const i = nextDuaIndex();
@@ -338,10 +339,16 @@ function initDuaModal() {
       clearTimeout(closeTimer);
       closeTimer = setTimeout(settle, 320);
     }
-    $('#fab')?.focus(); // إعادة التركيز إلى زر "ادعُ لها"
+    // إعادة التركيز إلى الزر الذي فتح النافذة (زر "ادعُ لها" العائم حُذف)
+    lastTrigger?.focus();
   };
 
-  $('#fab')?.addEventListener('click', open);
+  $$('[data-dua-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      lastTrigger = btn;
+      open();
+    });
+  });
   closeX?.addEventListener('click', close);
   $('#dlgClose')?.addEventListener('click', close);
   $('#dlgMore')?.addEventListener('click', render);
@@ -699,24 +706,28 @@ function initSocial() {
     return;
   }
 
-  links.forEach(([key, url]) => {
-    const label = SOCIAL_LABEL[key] || key;
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.className = 'social-link';
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.setAttribute('aria-label', label);
-    a.title = label;
-    a.innerHTML = icon(key, 18);
-    li.appendChild(a);
-    row.appendChild(li);
-  });
+  // الشعارات مبنية مسبقًا عند البناء (tools/build.mjs ← creator.social).
+  // هنا نملأها فقط إن كانت فارغة، حتى لا تتكرر.
+  if (!row.querySelector('li')) {
+    links.forEach(([key, url]) => {
+      const label = SOCIAL_LABEL[key] || key;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.className = 'social-link';
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.setAttribute('aria-label', label);
+      a.title = label;
+      a.innerHTML = icon(key, 18);
+      li.appendChild(a);
+      row.appendChild(li);
+    });
+  }
 
-  // حقوق صاحب القالب — السنة ديناميكية
+  // حقوق صاحب القالب — مبنية مسبقًا أيضًا، فلا نكتب فوقها
   const copy = $('#footerCopy');
-  if (copy && creator.copyright) {
+  if (copy && creator.copyright && !copy.textContent.trim()) {
     copy.innerHTML =
       `© ${new Date().getFullYear()} ${creator.name}` +
       '<span class="footer-copy-sub">جميع الحقوق محفوظة — All Rights Reserved</span>';

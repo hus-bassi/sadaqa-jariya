@@ -33,7 +33,7 @@
 
 /* أيقونات مرنة الحجم */
 .btn svg, .mini svg, .tap svg, .nav-icon svg, .icon-btn svg,
-.fab svg, .h-ico svg, .deed-icon svg, .scroll-hint svg {
+.h-ico svg, .deed-icon svg, .scroll-hint svg {
   flex: none;
   width: 1.15em;
   height: 1.15em;
@@ -43,7 +43,6 @@
 .deed-icon svg { width: 24px; height: 24px; }
 .scroll-hint svg { width: 20px; height: 20px; }
 .nav-icon svg, .icon-btn svg { width: 20px; height: 20px; }
-.fab svg { width: 20px; height: 20px; }
 .player-title svg { width: 18px; height: 18px; }
 
 .btn.gold {
