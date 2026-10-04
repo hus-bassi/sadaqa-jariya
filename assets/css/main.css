@@ -1390,10 +1390,95 @@ footer > * { position: relative; }
 /* ============================================================
    19) الاستجابة للشاشات (#43)
    ============================================================ */
+/* اللوح / iPad — أعرض من الموبايل وأضيق من سطح المكتب، ومتمركز.
+   شريط الصوت مخفي هنا (سلوك قائم) ليبقى الصف الواحد متسعًا. */
+@media (max-width: 1024px) {
+  .player-bar { max-width: 560px; }
+  .player-vol { display: none; }
+}
+
+/* ============================================================
+   لا يغطي المشغّل زر "سورة يس" العائم أبدًا — مسافة واضحة فوقه.
+   (الزران لا يظهران معًا في الوضع الطبيعي؛ هذه شبكة أمان.)
+   ============================================================ */
+body:has(.player-mini:not([hidden])) .player-bar {
+  bottom: calc(64px + var(--sab));
+}
+
 @media (max-width: 860px) {
   .player-time { min-width: 72px; font-size: 11.5px; }
-  .player-vol { display: none; }
   .player-bar { gap: 9px; padding: 10px 12px; }
+}
+
+/* ============================================================
+   الموبايل — شريط سفلي مضغوط من سطرين (#44)
+   نفس الـ HTML ونفس أزرار التحكم؛ تغيير تخطيط فقط.
+   نستخدم Grid هنا لا Flex، لأن Flex كان يضغط شريط التقدّم
+   داخل الصف الأول بدل أن ينزل سطرًا مستقلًا.
+   صف 1: [تشغيل/إيقاف] سورة يس  [إعادة] [كتم] [إغلاق]
+   صف 2: [شريط التقدّم ............] [الزمن]
+   ============================================================ */
+@media (max-width: 767px) {
+  .player-bar {
+    inset-inline: 12px;
+    bottom: calc(10px + var(--sab));
+    width: calc(100% - 24px);
+    max-width: 420px;
+    margin-inline: auto;
+    padding: 8px 10px;
+    border-radius: 18px;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 6px;
+    row-gap: 6px;
+    align-items: center;
+  }
+  .player-bar.on { display: grid; }
+
+  /* صف 1 */
+  .player-pp {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 48px;
+    min-height: 48px;
+  }
+  .player-title {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 6px;
+    font-size: 13.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #restartBtn { grid-column: 3; grid-row: 1; }
+  #muteBtn { grid-column: 4; grid-row: 1; }
+  .player-close { grid-column: 5; grid-row: 1; }
+  /* هدف لمس مريح (~44px) لكل أزرار الأيقونات */
+  .player-bar .icon-btn { min-width: 44px; min-height: 44px; }
+  /* زر التشغيل هو الأهم — يبقى 48px حتى مع قاعدة .icon-btn أعلاه */
+  .player-bar .player-pp { min-width: 48px; min-height: 48px; }
+
+  /* صف 2 */
+  .player-seek {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    height: 26px;
+  }
+  .player-time {
+    grid-column: 4 / 6;
+    grid-row: 2;
+    justify-self: start;
+    min-width: 0;
+    font-size: 11.5px;
+  }
+
+  /* زخرفة فقط — تُخفى لتوفير مساحة، بلا فقد أي وظيفة.
+     التحكم بالصوت يبقى عبر زر الكتم. */
+  .player-bar .wave,
+  .player-vol { display: none; }
 }
 
 @media (max-width: 560px) {
@@ -1402,20 +1487,7 @@ footer > * { position: relative; }
   .dua-text { font-size: 18px; }
   .grid { grid-template-columns: 1fr; }
   .tap { min-height: 78px; font-size: 21px; }
-  .player-title span { display: none; }
-  /* مشغّل الصوت على الموبايل — تخطيط من سطرين (§19) */
-  .player-bar {
-    inset-inline: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 6px;
-    padding: 10px 12px calc(10px + var(--sab));
-    border-radius: 20px;
-  }
-  .player-seek { order: 3; flex: 1 1 100%; min-width: 0; }
-  .player-time { order: 4; min-width: auto; font-size: 11.5px; }
-  .wave { order: 1; }
-  .player-mini { bottom: calc(14px + var(--sab)); }
+  /* تخطيط المشغّل على الموبايل صار في كتلة max-width: 768 أعلاه */
   .modal { padding: 16px; }
   .modal-box { padding: 30px 22px calc(26px + var(--sab)); }
   .modal-box h3 { font-size: 21px; }
@@ -1430,8 +1502,14 @@ footer > * { position: relative; }
   #rbody { font-size: 26px; padding: 26px 18px 120px; }
 }
 
+/* شاشات ضيقة جدًا (320–360) — يبقى الزمن مقروءًا ولا يظهر أي تمرير أفقي */
 @media (max-width: 380px) {
-  .player-time { display: none; }
+  .player-bar { column-gap: 5px; padding: 8px; }
+  .player-bar .icon-btn { min-width: 40px; min-height: 40px; }
+  .player-bar .player-pp { min-width: 44px; min-height: 44px; }
+  .player-title { font-size: 13px; }
+  .player-time { font-size: 11px; }
+
   .counter-big { font-size: 52px; }
   .hero h1 { font-size: 24px; }
   /* شعارات التواصل أصغر قليلًا على الشاشات الضيقة (§28) */
